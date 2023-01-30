@@ -1,0 +1,36 @@
+.card-image{
+    width: 100px;
+}
+
+.contenedor{
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px,1fr));
+    gap: 20px;
+    margin: 20px;
+
+}
+
+.card-image{
+    display: flex;
+    align-items: center;
+    margin: 10px 30px 30px;
+}
+
+.card-text{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0;
+    flex-direction: column;
+}
+
+
+.titulo{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 20px;
+    padding: 20px;
+    font-size: 40px;
+    font-family: monospace;
+}
