@@ -1,4 +1,23 @@
+const obtenerLocal = (clave) => {
+    return JSON.parse(localStorage.getItem(clave))
+}
+
+const enviarLs = (clave, valor) => {
+    return localStorage.setItem(clave, JSON.stringify(valor))
+}
+
+
+
+
 const contenedor = document.querySelector(".contenedor")
+
+let carro = []
+
+const carritoActualizado = obtenerLocal("carro") || []
+
+
+
+
 
 
 
@@ -8,7 +27,6 @@ const apiCharacters = async () => {
     const response = await fetch(url)
     const data = await response.json()
     cards(data.results)
-    console.log(data.results);
 
 }
 
@@ -21,8 +39,9 @@ const cards = (array) =>{
                 <img src="${element.image}" alt="characters">
             </div>
             <div class="card-text">
-                <span class="card-name">${element.name}</span>
-                <span class="card-origin">${element.id}</span>
+                <span class="card-name">Nombre: ${element.name}</span>
+                <span class="card-name">Origen: ${element.origin.name}</span>
+                <span class="card-origin">ID: ${element.id}</span>
                 <button id="boton-${element.id}">Agregar</button>
             </div>
         </div>
@@ -34,14 +53,18 @@ const cards = (array) =>{
 
 apiCharacters()
 
-let carro = []
+
+
+
+
+
 
 const agregarBtn = async () => {
     const url = "https://rickandmortyapi.com/api/character"
-
+    
     const response = await fetch(url)
     const data = await response.json()
-
+    
     const cards = document.querySelectorAll(".card")
     cards.forEach( elemento => {
         elemento.onclick = () => {
@@ -50,12 +73,33 @@ const agregarBtn = async () => {
                 if (elemento.id === Number(id)) {
                     carro.push(elemento)
                     localStorage.setItem("carro", JSON.stringify(carro))
+                    actualizarCarrito()
                 }
             } )
-            console.log(filtrarPersonaje)
         }
     })  
-
+    
 }
 
+carro = carritoActualizado
+
+const actualizarCarrito = () => {
+    let nroCarrito = JSON.parse(localStorage.getItem("carro"))
+    let nro= document.querySelector("#numerito")
+    if (nroCarrito === null) {
+        nro.innerHTML = "0"
+    } else {
+        nro.innerHTML = nroCarrito.length
+    }
+}
+
+
 agregarBtn()
+
+
+window.addEventListener("load" , function() {
+    actualizarCarrito()
+    
+})
+
+
